@@ -102,51 +102,52 @@
     </footer>
 
     <script>
-        async function fetchOptionsData() {
-            const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
-            const endpoint = 'https://api.tradier.com/v1/markets/options'; // Tradier API endpoint
+       async function fetchOptionsData() {
+    const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
+    const endpoint = 'https://api.tradier.com/v1/markets/options'; // Tradier API endpoint
 
-            try {
-                const response = await fetch(`${endpoint}?symbol=SPY`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.status === 404) {
-                    console.error('Error: Resource not found. Please check the endpoint.');
-                    alert('Resource not found. Please check the endpoint.');
-                    return;
-                }
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                console.log(data); // Debugging: Check the data format returned from Tradier API
-
-                // Update the alert details with the data fetched
-                const alertDetails = document.getElementById('alert-details');
-                alertDetails.innerHTML = `
-                    <span><strong>Trade Type:</strong> ${data.optionType || 'N/A'}</span>
-                    <span><strong>Strike:</strong> ${data.strike || 'N/A'}</span>
-                    <span><strong>IV Rank:</strong> ${data.iv_rank || 'N/A'}</span>
-                    <span><strong>Volume Spike:</strong> ${data.volume_spike || 'N/A'}</span>
-                `;
-                
-                // Further data processing based on your requirements...
-                
-                // Set alerts based on conditions
-                setAlerts(data);
-
-            } catch (error) {
-                console.error('Error fetching options data:', error);
-                alert('Failed to fetch options data. Check console for details.');
+    try {
+        const response = await fetch(`${endpoint}?symbol=SPY`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Accept': 'application/json'
             }
+        });
+
+        if (response.status === 404) {
+            console.error('Error: Resource not found. Please check the endpoint.');
+            alert('Resource not found. Please check the endpoint.');
+            return;
         }
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log(data); // Debugging: Check the data format returned from Tradier API
+
+        // Update the alert details with the data fetched
+        const alertDetails = document.getElementById('alert-details');
+        // Modify how you access the data based on the response structure
+        // For example:
+        alertDetails.innerHTML = `
+            <span><strong>Trade Type:</strong> ${data.optionType || 'N/A'}</span>
+            <span><strong>Strike:</strong> ${data.strike || 'N/A'}</span>
+            <span><strong>IV Rank:</strong> ${data.iv_rank || 'N/A'}</span>
+            <span><strong>Volume Spike:</strong> ${data.volume_spike || 'N/A'}</span>
+        `;
+        
+        // Set alerts based on conditions
+        setAlerts(data);
+
+    } catch (error) {
+        console.error('Error fetching options data:', error);
+        alert('Failed to fetch options data. Check console for details.');
+    }
+}
+
 
         function setAlerts(data) {
             // Example conditions
