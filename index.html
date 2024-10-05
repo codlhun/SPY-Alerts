@@ -7,13 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-image: url('stockmarket.jpg'); /* Background image */
+            background-size: cover; /* Make the background cover the entire page */
             margin: 0;
             padding: 0;
+            color: white; /* Text color for better visibility on background */
         }
         header {
-            background-color: #222;
-            color: white;
+            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent background */
             padding: 20px;
             text-align: center;
         }
@@ -23,7 +24,7 @@
             padding: 20px;
         }
         .alert-box {
-            background-color: #eee;
+            background-color: rgba(238, 238, 238, 0.8); /* Semi-transparent alert box */
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 8px;
@@ -41,7 +42,7 @@
             margin-right: 15px;
         }
         .historical-data {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent historical data box */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -51,7 +52,7 @@
             margin-bottom: 20px;
         }
         footer {
-            background-color: #222;
+            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent footer */
             color: white;
             padding: 10px;
             text-align: center;
@@ -131,18 +132,20 @@
             const data = await response.json();
             console.log(data); // Debugging: Check the data format returned from Tradier API
 
+            // Assume the data structure here
+            const option = data.options[0]; // Grab the first option for simplicity
+
             // Update the alert details with the data fetched
             const alertDetails = document.getElementById('alert-details');
-            // Modify how you access the data based on the response structure
             alertDetails.innerHTML = `
-                <span><strong>Trade Type:</strong> Call/Put</span>
-                <span><strong>Strike:</strong> ${data.options[0].strike || 'N/A'}</span> 
-                <span><strong>IV Rank:</strong> ${data.options[0].iv_rank || 'N/A'}</span>
-                <span><strong>Volume Spike:</strong> ${data.options[0].volume_spike || 'N/A'}</span>
+                <span><strong>Trade Type:</strong> ${option.type || 'N/A'}</span>
+                <span><strong>Strike:</strong> ${option.strike || 'N/A'}</span>
+                <span><strong>IV Rank:</strong> ${option.iv_rank || 'N/A'}</span>
+                <span><strong>Volume Spike:</strong> ${option.volume_spike || 'N/A'}</span>
             `;
 
             // Breakeven, Stop Loss, and Target Profit calculations
-            const entryPrice = data.options[0].last_price; // Assuming last_price field exists
+            const entryPrice = option.last_price; // Assuming last_price field exists
             const stopLoss = entryPrice * 0.90; // Example: stop loss at 10% below entry price
             const targetProfit = entryPrice * 1.20; // Example: target profit at 20% above entry price
             const breakeven = entryPrice; // For options, breakeven can be the entry price
@@ -163,12 +166,12 @@
     }
 
     function setAlerts(entryPrice, stopLoss, targetProfit) {
-        const profitPotential = (entryPrice - entryPrice) / entryPrice; // Replace with actual gain/loss data
+        const currentTradeOutcome = entryPrice; // Replace with actual executed trade price to calculate profit/loss
 
         // Check for alerts
-        if (profitPotential >= 0.20) {
+        if (currentTradeOutcome >= targetProfit) {
             alert('Alert: Target profit of 20% reached! Consider selling.');
-        } else if (profitPotential <= -0.10) {
+        } else if (currentTradeOutcome <= stopLoss) {
             alert('Alert: Stop-loss threshold reached. Consider exiting the trade.');
         }
     }
