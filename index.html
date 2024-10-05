@@ -7,16 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('stockmarket2.jpg'); /* Background image */
+            background-image: url('stockmarket2.jpg'); /* Updated background image */
             background-size: cover; /* Make the background cover the entire page */
             margin: 0;
             padding: 0;
-            color: black; /* Text color for better visibility on background */
+            color: black; /* Body text color changed to black */
         }
         header {
             background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent background */
             padding: 20px;
             text-align: center;
+            color: white; /* Header text color set to white */
         }
         .container {
             max-width: 1200px;
@@ -60,126 +61,133 @@
             bottom: 0;
             width: 100%;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .alert-box, .historical-data {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .alert-header {
+                font-size: 1.1em;
+            }
+            .alert-details span {
+                display: block; /* Stack alerts on small screens */
+                margin-right: 0; /* Remove margin */
+                margin-bottom: 10px; /* Add spacing between alerts */
+            }
+            footer {
+                font-size: 0.9em; /* Smaller font for footer */
+            }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>SPY 0DTE Alert System</h1>
-    <p>Only the highest probability 0DTE call and put setups delivered daily.</p>
-</header>
+    <header>
+        <h1>SPY 0DTE Alert System</h1>
+        <p>Only the highest probability 0DTE call and put setups delivered daily.</p>
+    </header>
 
-<div class="container">
-    <!-- Alert Section -->
-    <div class="alert-box" id="alert-box">
-        <div class="alert-header">New Trade Alert!</div>
-        <div class="alert-details" id="alert-details">
-            <span><strong>Trade Type:</strong> Loading...</span>
-            <span><strong>Strike:</strong> Loading...</span>
-            <span><strong>Expiration:</strong> Today</span>
-            <span><strong>IV Rank:</strong> Loading...</span>
-            <span><strong>Volume Spike:</strong> Loading...</span>
+    <div class="container">
+        <!-- Alert Section -->
+        <div class="alert-box" id="alert-box">
+            <div class="alert-header">New Trade Alert!</div>
+            <div class="alert-details" id="alert-details">
+                <span><strong>Trade Type:</strong> Loading...</span>
+                <span><strong>Strike:</strong> Loading...</span>
+                <span><strong>Expiration:</strong> Today</span>
+                <span><strong>IV Rank:</strong> Loading...</span>
+                <span><strong>Volume Spike:</strong> Loading...</span>
+            </div>
+            <div class="alert-details">
+                <span><strong>Breakeven Prices:</strong> Loading...</span>
+                <span><strong>Stop Loss:</strong> Loading...</span>
+                <span><strong>Target Profit:</strong> Loading...</span>
+            </div>
         </div>
-        <div class="alert-details">
-            <span><strong>Breakeven Prices:</strong> Loading...</span>
-            <span><strong>Stop Loss:</strong> Loading...</span>
-            <span><strong>Target Profit:</strong> Loading...</span>
-        </div>
-        <div class="alert-details">
-            <span><strong>Trade Outcome:</strong> Loading...</span>
+
+        <!-- Historical Data Section -->
+        <div class="historical-data">
+            <h2>SPY Historical Volatility and Price Data</h2>
+            <p>Average Daily Price Moves Over Last 5 Days: +1.2% / -0.9%</p>
+            <p>Max Pain Level for Expiration: 572</p>
+            <p>IV30: 13.9%, 30-Day Historical Volatility: 12.5%</p>
+            <p>Top Call Strikes by Volume: 570 (100,000 OI)</p>
+            <p>Top Put Strikes by Volume: 570 (120,000 OI)</p>
         </div>
     </div>
 
-    <!-- Historical Data Section -->
-    <div class="historical-data">
-        <h2>SPY Historical Volatility and Price Data</h2>
-        <p>Average Daily Price Moves Over Last 5 Days: +1.2% / -0.9%</p>
-        <p>Max Pain Level for Expiration: 572</p>
-        <p>IV30: 13.9%, 30-Day Historical Volatility: 12.5%</p>
-        <p>Top Call Strikes by Volume: 570 (100,000 OI)</p>
-        <p>Top Put Strikes by Volume: 570 (120,000 OI)</p>
-    </div>
-</div>
+    <footer>
+        <p>SPY 0DTE Alert System &copy; 2024</p>
+    </footer>
 
-<footer>
-    <p>SPY 0DTE Alert System &copy; 2024</p>
-</footer>
+    <script>
+        async function fetchOptionsData() {
+            const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
+            const endpoint = 'https://api.tradier.com/v1/markets/options'; // Tradier API endpoint
 
-<script>
-    async function fetchOptionsData() {
-        const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
-        const endpoint = 'https://api.tradier.com/v1/markets/options'; // Tradier API endpoint
+            try {
+                const response = await fetch(`${endpoint}?symbol=SPY`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Accept': 'application/json'
+                    }
+                });
 
-        try {
-            const response = await fetch(`${endpoint}?symbol=SPY`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${apiKey}`,
-                    'Accept': 'application/json'
+                if (response.status === 404) {
+                    console.error('Error: Resource not found. Please check the endpoint.');
+                    alert('Resource not found. Please check the endpoint.');
+                    return;
                 }
-            });
 
-            if (response.status === 404) {
-                console.error('Error: Resource not found. Please check the endpoint.');
-                alert('Resource not found. Please check the endpoint.');
-                return;
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data); // Debugging: Check the data format returned from Tradier API
+
+                // Update the alert details with the data fetched
+                const alertDetails = document.getElementById('alert-details');
+                // Modify how you access the data based on the response structure
+                // For example:
+                alertDetails.innerHTML = `
+                    <span><strong>Trade Type:</strong> ${data.optionType || 'N/A'}</span>
+                    <span><strong>Strike:</strong> ${data.strike || 'N/A'}</span>
+                    <span><strong>IV Rank:</strong> ${data.iv_rank || 'N/A'}</span>
+                    <span><strong>Volume Spike:</strong> ${data.volume_spike || 'N/A'}</span>
+                `;
+
+                // Set alerts based on conditions
+                setAlerts(data);
+
+            } catch (error) {
+                console.error('Error fetching options data:', error);
+                alert('Failed to fetch options data. Check console for details.');
             }
+        }
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        function setAlerts(data) {
+            // Example conditions
+            const targetProfit = 0.20; // 20% profit
+            const stopLossThreshold = 0.10; // 10% stop-loss
+
+            // Assume data includes fields for price and cost
+            const profitPotential = (data.current_price - data.cost) / data.cost;
+
+            if (profitPotential >= targetProfit) {
+                alert('Alert: Target profit of 20% reached! Consider selling.');
+            } else if (profitPotential <= -stopLossThreshold) {
+                alert('Alert: Stop-loss threshold reached. Consider exiting the trade.');
             }
-
-            const data = await response.json();
-            console.log(data); // Debugging: Check the data format returned from Tradier API
-
-            // Assume the data structure here
-            const option = data.options[0]; // Grab the first option for simplicity
-
-            // Update the alert details with the data fetched
-            const alertDetails = document.getElementById('alert-details');
-            alertDetails.innerHTML = `
-                <span><strong>Trade Type:</strong> ${option.type || 'N/A'}</span>
-                <span><strong>Strike:</strong> ${option.strike || 'N/A'}</span>
-                <span><strong>IV Rank:</strong> ${option.iv_rank || 'N/A'}</span>
-                <span><strong>Volume Spike:</strong> ${option.volume_spike || 'N/A'}</span>
-            `;
-
-            // Breakeven, Stop Loss, and Target Profit calculations
-            const entryPrice = option.last_price; // Assuming last_price field exists
-            const stopLoss = entryPrice * 0.90; // Example: stop loss at 10% below entry price
-            const targetProfit = entryPrice * 1.20; // Example: target profit at 20% above entry price
-            const breakeven = entryPrice; // For options, breakeven can be the entry price
-
-            alertDetails.innerHTML += `
-                <span><strong>Breakeven Prices:</strong> ${breakeven.toFixed(2)}</span>
-                <span><strong>Stop Loss:</strong> ${stopLoss.toFixed(2)}</span>
-                <span><strong>Target Profit:</strong> ${targetProfit.toFixed(2)}</span>
-            `;
-
-            // Set alerts based on conditions
-            setAlerts(entryPrice, stopLoss, targetProfit);
-
-        } catch (error) {
-            console.error('Error fetching options data:', error);
-            alert('Failed to fetch options data. Check console for details.');
         }
-    }
 
-    function setAlerts(entryPrice, stopLoss, targetProfit) {
-        const currentTradeOutcome = entryPrice; // Replace with actual executed trade price to calculate profit/loss
+        // Fetch options data when the page loads
+        window.onload = fetchOptionsData;
 
-        // Check for alerts
-        if (currentTradeOutcome >= targetProfit) {
-            alert('Alert: Target profit of 20% reached! Consider selling.');
-        } else if (currentTradeOutcome <= stopLoss) {
-            alert('Alert: Stop-loss threshold reached. Consider exiting the trade.');
-        }
-    }
-
-    // Fetch options data when the page loads
-    window.onload = fetchOptionsData;
-
-</script>
+    </script>
 
 </body>
 </html>
