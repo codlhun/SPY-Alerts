@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0DTE SPY Alert System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"> <!-- Bungee Font -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +18,13 @@
             background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent background */
             padding: 20px;
             text-align: center;
-            color: white; /* Header text color set to white */
+        }
+        h1 {
+            font-family: 'Bungee', sans-serif; /* Bungee font for the title */
+            font-size: 3em; /* Adjust the size as needed */
+            color: white; /* Title text color */
+            text-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green; /* Green glow effect */
+            animation: flash 1s infinite alternate; /* Flashing effect */
         }
         .container {
             max-width: 1200px;
@@ -78,6 +85,16 @@
             }
             footer {
                 font-size: 0.9em; /* Smaller font for footer */
+            }
+        }
+
+        /* Flashing effect for title */
+        @keyframes flash {
+            0% {
+                text-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green; /* Initial glow */
+            }
+            100% {
+                text-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green; /* Increased glow */
             }
         }
     </style>
