@@ -35,7 +35,7 @@
         }
 
         img {
-            width: 30%; /* Set the image width to 30% of its original size */
+            width: 25%; /* Set the image width to 25% of its original size */
             height: auto; /* Maintain aspect ratio */
             cursor: pointer; /* Pointer cursor for clickable image */
         }
@@ -53,32 +53,13 @@
         /* Popup styling */
         .popup {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: absolute;
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 20px;
+            padding: 10px;
             border-radius: 8px;
             z-index: 1000;
-        }
-
-        .popup h2 {
-            color: #004080;
-        }
-
-        .close {
-            color: white;
-            background-color: #ff3333;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .close:hover {
-            background-color: #cc0000;
+            max-width: 200px; /* Set a maximum width for the popup */
         }
     </style>
 </head>
@@ -89,39 +70,33 @@
     </header>
 
     <main>
-        <img src="body.jpg" alt="Anatomical Map of the Human Body" onclick="showPopup()">
+        <div style="position: relative;">
+            <img src="body.jpg" alt="Anatomical Map of the Human Body" usemap="#bodymap">
+            <div id="popup" class="popup"></div>
+        </div>
+        <map name="bodymap">
+            <area shape="rect" coords="120,30,180,90" alt="Tinnitus" onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="110,150,190,230" alt="Limitation of Flexion" onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="100,300,200,380" alt="Hearing Loss" onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="80,410,220,490" alt="PTSD" onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="80,540,220,620" alt="Lumbosacral Strain" onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" onmouseout="hidePopup()">
+        </map>
     </main>
-
-    <div class="popup" id="popup">
-        <h2>Claim Information</h2>
-        <p id="claimDetails"></p>
-        <button class="close" onclick="closePopup()">Close</button>
-    </div>
 
     <footer>
         &copy; 2024 VA Assistance Resources. All rights reserved.
     </footer>
 
     <script>
-        const claimInfo = {
-            'Tinnitus': 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.',
-            'Limitation of Flexion': 'This refers to reduced ability to bend the knee, often due to injuries.',
-            'Hearing Loss': 'Hearing loss is often caused by exposure to loud noises during military service.',
-            'PTSD': 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.',
-            'Lumbosacral Strain': 'Lumbosacral strain involves back issues often resulting from physical demands of service.'
-        };
-
-        function showPopup() {
-            let bodyPart = prompt("Enter the body part to see the claim information (e.g., Tinnitus, Limitation of Flexion, Hearing Loss, PTSD, Lumbosacral Strain):");
-            if (claimInfo[bodyPart]) {
-                document.getElementById('claimDetails').innerText = claimInfo[bodyPart];
-                document.getElementById('popup').style.display = 'block';
-            } else {
-                alert("No information available for this body part.");
-            }
+        function showPopup(event, title, content) {
+            const popup = document.getElementById('popup');
+            popup.innerHTML = `<strong>${title}</strong><br>${content}`;
+            popup.style.display = 'block';
+            popup.style.left = event.pageX + 'px';
+            popup.style.top = event.pageY + 'px';
         }
 
-        function closePopup() {
+        function hidePopup() {
             document.getElementById('popup').style.display = 'none';
         }
     </script>
