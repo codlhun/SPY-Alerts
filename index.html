@@ -54,12 +54,14 @@
         .popup {
             display: none;
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
+            background-color: black; /* Popup background color */
+            color: white; /* Text color for the popup */
             padding: 10px;
             border-radius: 8px;
             z-index: 1000;
             max-width: 200px; /* Set a maximum width for the popup */
+            border: 2px solid white; /* White border for the popup */
+            box-shadow: 0 0 10px white; /* Glowing effect */
         }
     </style>
 </head>
@@ -93,8 +95,8 @@
             const popup = document.getElementById('popup');
             popup.innerHTML = `<strong>${title}</strong><br>${content}`;
             popup.style.display = 'block';
-            popup.style.left = event.pageX + 'px';
-            popup.style.top = event.pageY + 'px';
+            popup.style.left = (event.pageX + 10) + 'px'; // Offset popup position slightly for better visibility
+            popup.style.top = (event.pageY + 10) + 'px'; // Offset popup position slightly for better visibility
         }
 
         function hidePopup() {
