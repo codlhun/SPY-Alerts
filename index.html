@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +11,12 @@
             padding: 0;
             background-color: black; /* Background color set to black */
             color: white; /* Text color set to white */
-            text-align: center; /* Centering text */
         }
 
         header {
             background-color: #004080; /* Blue banner color */
             color: white;
+            text-align: center;
             padding: 20px 0;
         }
 
@@ -37,7 +36,22 @@
         img {
             width: 30%; /* Set the image width to 30% of its original size */
             height: auto; /* Maintain aspect ratio */
-            cursor: pointer; /* Pointer cursor for clickable image */
+            position: relative;
+        }
+
+        /* Popup Styling */
+        .popup {
+            position: fixed; /* Fixed position */
+            right: 20px; /* Position it on the right */
+            top: 50%; /* Center it vertically */
+            transform: translateY(-50%); /* Adjust to center vertically */
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+            color: white; /* Text color white */
+            border: 1px solid white; /* White border */
+            padding: 10px; /* Padding for text */
+            border-radius: 5px; /* Rounded corners */
+            display: none; /* Initially hidden */
+            z-index: 10; /* Ensure it appears above other elements */
         }
 
         footer {
@@ -49,21 +63,20 @@
             bottom: 0;
             width: 100%;
         }
-
-        /* Popup styling */
-        .popup {
-            display: none;
-            position: absolute;
-            background-color: black; /* Popup background color */
-            color: white; /* Text color for the popup */
-            padding: 10px;
-            border-radius: 8px;
-            z-index: 1000;
-            max-width: 200px; /* Set a maximum width for the popup */
-            border: 2px solid white; /* White border for the popup */
-            box-shadow: 0 0 10px white; /* Glowing effect */
-        }
     </style>
+    <script>
+        function showPopup(event, title, text) {
+            const popup = document.getElementById('popup');
+            popup.innerHTML = `<strong>${title}</strong><br>${text}`;
+            popup.style.display = 'block';
+            popup.style.left = `${event.clientX + 10}px`; // Adjust X position if needed
+            popup.style.top = `${event.clientY}px`; // Set Y position
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </head>
 
 <body>
@@ -72,38 +85,30 @@
     </header>
 
     <main>
-        <div style="position: relative;">
-            <img src="body.jpg" alt="Anatomical Map of the Human Body" usemap="#bodymap">
-            <div id="popup" class="popup"></div>
-        </div>
-        <map name="bodymap">
-            <!-- Adjusted coordinates for each body part -->
-            <area shape="rect" coords="170,50,210,90" alt="PTSD" onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="50,180,100,220" alt="Hearing Loss" onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="300,180,350,220" alt="Tinnitus" onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="160,400,230,450" alt="Limitation of Flexion" onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="150,260,230,300" alt="Lumbosacral Strain" onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" onmouseout="hidePopup()">
-        </map>
+        <img src="body.jpg" alt="Anatomical Map of the Human Body" usemap="#bodymap">
+        <div class="popup" id="popup"></div> <!-- Popup div -->
     </main>
+
+    <map name="bodymap">
+        <area shape="rect" coords="160,30,200,70" alt="PTSD" 
+              onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" 
+              onmouseout="hidePopup()">
+        <area shape="rect" coords="50,180,100,220" alt="Hearing Loss" 
+              onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" 
+              onmouseout="hidePopup()">
+        <area shape="rect" coords="300,180,350,220" alt="Tinnitus" 
+              onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" 
+              onmouseout="hidePopup()">
+        <area shape="rect" coords="160,400,230,450" alt="Limitation of Flexion" 
+              onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" 
+              onmouseout="hidePopup()">
+        <area shape="rect" coords="150,260,230,300" alt="Lumbosacral Strain" 
+              onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" 
+              onmouseout="hidePopup()">
+    </map>
 
     <footer>
         &copy; 2024 VA Assistance Resources. All rights reserved.
     </footer>
-
-    <script>
-        function showPopup(event, title, content) {
-            const popup = document.getElementById('popup');
-            popup.innerHTML = `<strong>${title}</strong><br>${content}`;
-            popup.style.display = 'block';
-            popup.style.left = (event.pageX + 10) + 'px'; // Offset popup position slightly for better visibility
-            popup.style.top = (event.pageY + 10) + 'px'; // Offset popup position slightly for better visibility
-        }
-
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
-
 </body>
-
 </html>
