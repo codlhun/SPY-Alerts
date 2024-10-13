@@ -35,8 +35,9 @@
         }
 
         img {
-            max-width: 100%; /* Make the image responsive */
+            width: 30%; /* Set the image width to 30% of its original size */
             height: auto; /* Maintain aspect ratio */
+            cursor: pointer; /* Pointer cursor for clickable image */
         }
 
         footer {
@@ -48,6 +49,37 @@
             bottom: 0;
             width: 100%;
         }
+
+        /* Popup styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .popup h2 {
+            color: #004080;
+        }
+
+        .close {
+            color: white;
+            background-color: #ff3333;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .close:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 
@@ -57,12 +89,42 @@
     </header>
 
     <main>
-        <img src="body.jpg" alt="Anatomical Map of the Human Body">
+        <img src="body.jpg" alt="Anatomical Map of the Human Body" onclick="showPopup()">
     </main>
 
+    <div class="popup" id="popup">
+        <h2>Claim Information</h2>
+        <p id="claimDetails"></p>
+        <button class="close" onclick="closePopup()">Close</button>
+    </div>
+
     <footer>
-       
+        &copy; 2024 VA Assistance Resources. All rights reserved.
     </footer>
+
+    <script>
+        const claimInfo = {
+            'Tinnitus': 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.',
+            'Limitation of Flexion': 'This refers to reduced ability to bend the knee, often due to injuries.',
+            'Hearing Loss': 'Hearing loss is often caused by exposure to loud noises during military service.',
+            'PTSD': 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.',
+            'Lumbosacral Strain': 'Lumbosacral strain involves back issues often resulting from physical demands of service.'
+        };
+
+        function showPopup() {
+            let bodyPart = prompt("Enter the body part to see the claim information (e.g., Tinnitus, Limitation of Flexion, Hearing Loss, PTSD, Lumbosacral Strain):");
+            if (claimInfo[bodyPart]) {
+                document.getElementById('claimDetails').innerText = claimInfo[bodyPart];
+                document.getElementById('popup').style.display = 'block';
+            } else {
+                alert("No information available for this body part.");
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 
 </body>
 
