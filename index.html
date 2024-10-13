@@ -35,7 +35,7 @@
         }
 
         img {
-            width: 25%; /* Set the image width to 25% of its original size */
+            width: 20%; /* Set the image width to 20% of its original size */
             height: auto; /* Maintain aspect ratio */
             cursor: pointer; /* Pointer cursor for clickable image */
         }
@@ -75,11 +75,12 @@
             <div id="popup" class="popup"></div>
         </div>
         <map name="bodymap">
-            <area shape="rect" coords="120,30,180,90" alt="Tinnitus" onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="110,150,190,230" alt="Limitation of Flexion" onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="100,300,200,380" alt="Hearing Loss" onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="80,410,220,490" alt="PTSD" onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" onmouseout="hidePopup()">
-            <area shape="rect" coords="80,540,220,620" alt="Lumbosacral Strain" onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" onmouseout="hidePopup()">
+            <!-- Adjusted coordinates for each body part -->
+            <area shape="rect" coords="170,30,210,70" alt="PTSD" onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="50,170,100,220" alt="Hearing Loss" onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="300,170,350,220" alt="Tinnitus" onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="150,400,230,450" alt="Limitation of Flexion" onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" onmouseout="hidePopup()">
+            <area shape="rect" coords="150,260,230,300" alt="Lumbosacral Strain" onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" onmouseout="hidePopup()">
         </map>
     </main>
 
