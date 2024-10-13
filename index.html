@@ -1,214 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0DTE SPY Alert System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"> <!-- Bungee Font -->
+    <title>Body Claims Map</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('stockmarket2.jpg'); /* Updated background image */
-            background-size: cover; /* Make the background cover the entire page */
-            background-attachment: fixed; /* Keep background stationary while scrolling */
             margin: 0;
             padding: 0;
-            color: black; /* Body text color changed to black */
+            background-color: black; /* Background color set to black */
+            color: white; /* Text color set to white */
         }
+
         header {
-            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent background */
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            font-family: 'Bungee', sans-serif; /* Bungee font for the title */
-            font-size: 3em; /* Adjust the size as needed */
-            color: white; /* Title text color */
-            text-shadow: 0 0 10px green, 0 0 15px green, 0 0 20px green; /* Thicker green glow effect */
-            animation: flash 0.5s infinite alternate; /* Faster flashing effect */
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-        .alert-box {
-            background-color: rgba(238, 238, 238, 0.8); /* Semi-transparent alert box */
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .alert-header {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .alert-details {
-            margin-top: 10px;
-        }
-        .alert-details span {
-            display: inline-block;
-            margin-right: 15px;
-        }
-        .historical-data {
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent historical data box */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .historical-data h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        footer {
-            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent footer */
+            background-color: #004080; /* Blue banner color */
             color: white;
-            padding: 10px;
             text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em; /* Header size */
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: black; /* Ensure the main section has a black background */
+        }
+
+        img {
+            max-width: 100%; /* Make the image responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        footer {
+            background-color: #004080; /* Blue footer color */
+            color: white;
+            text-align: center;
+            padding: 10px;
             position: relative;
             bottom: 0;
             width: 100%;
         }
-
-        /* Responsive Styles */
-        @media (max-width: 600px) {
-            body {
-                background-size: contain; /* Ensure background image fits on mobile */
-            }
-            .alert-box, .historical-data {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            .alert-header {
-                font-size: 1.1em;
-            }
-            .alert-details span {
-                display: block; /* Stack alerts on small screens */
-                margin-right: 0; /* Remove margin */
-                margin-bottom: 10px; /* Add spacing between alerts */
-            }
-            footer {
-                font-size: 0.9em; /* Smaller font for footer */
-            }
-        }
-
-        /* Flashing effect for title */
-        @keyframes flash {
-            0% {
-                text-shadow: 0 0 10px green, 0 0 15px green, 0 0 20px green; /* Initial glow */
-            }
-            100% {
-                text-shadow: 0 0 15px green, 0 0 25px green, 0 0 30px green; /* Increased glow */
-            }
-        }
     </style>
 </head>
-<body>
 
+<body>
     <header>
-        <h1>SPY 0DTE Alert System</h1>
-        <p>Only the highest probability 0DTE call and put setups delivered daily.</p>
+        <h1>Body Claims Map</h1>
     </header>
 
-    <div class="container">
-        <!-- Alert Section -->
-        <div class="alert-box" id="alert-box">
-            <div class="alert-header">New Trade Alert!</div>
-            <div class="alert-details" id="alert-details">
-                <span><strong>Trade Type:</strong> Loading...</span>
-                <span><strong>Strike:</strong> Loading...</span>
-                <span><strong>Expiration:</strong> Today</span>
-                <span><strong>IV Rank:</strong> Loading...</span>
-                <span><strong>Volume Spike:</strong> Loading...</span>
-            </div>
-            <div class="alert-details">
-                <span><strong>Breakeven Prices:</strong> Loading...</span>
-                <span><strong>Stop Loss:</strong> Loading...</span>
-                <span><strong>Target Profit:</strong> Loading...</span>
-            </div>
-        </div>
-
-        <!-- Historical Data Section -->
-        <div class="historical-data">
-            <h2>SPY Historical Volatility and Price Data</h2>
-            <p>Average Daily Price Moves Over Last 5 Days: +1.2% / -0.9%</p>
-            <p>Max Pain Level for Expiration: 572</p>
-            <p>IV30: 13.9%, 30-Day Historical Volatility: 12.5%</p>
-            <p>Top Call Strikes by Volume: 570 (100,000 OI)</p>
-            <p>Top Put Strikes by Volume: 570 (120,000 OI)</p>
-        </div>
-    </div>
+    <main>
+        <img src="body.jpg" alt="Anatomical Map of the Human Body">
+    </main>
 
     <footer>
-        <p>SPY 0DTE Alert System &copy; 2024</p>
+        &copy; 2024 VA Assistance Resources. All rights reserved.
     </footer>
 
-    <script>
-        async function fetchOptionsData() {
-            const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
-            const endpoint = 'https://api.tradier.com/v1/markets/options'; // Tradier API endpoint
-
-            try {
-                const response = await fetch(`${endpoint}?symbol=SPY`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.status === 404) {
-                    console.error('Error: Resource not found. Please check the endpoint.');
-                    alert('Resource not found. Please check the endpoint.');
-                    return;
-                }
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                console.log(data); // Debugging: Check the data format returned from Tradier API
-
-                // Update the alert details with the data fetched
-                const alertDetails = document.getElementById('alert-details');
-                // Modify how you access the data based on the response structure
-                // For example:
-                alertDetails.innerHTML = `
-                    <span><strong>Trade Type:</strong> ${data.optionType || 'N/A'}</span>
-                    <span><strong>Strike:</strong> ${data.strike || 'N/A'}</span>
-                    <span><strong>IV Rank:</strong> ${data.iv_rank || 'N/A'}</span>
-                    <span><strong>Volume Spike:</strong> ${data.volume_spike || 'N/A'}</span>
-                `;
-
-                // Set alerts based on conditions
-                setAlerts(data);
-
-            } catch (error) {
-                console.error('Error fetching options data:', error);
-                alert('Failed to fetch options data. Check console for details.');
-            }
-        }
-
-        function setAlerts(data) {
-            // Example conditions
-            const targetProfit = 0.20; // 20% profit
-            const stopLossThreshold = 0.10; // 10% stop-loss
-
-            // Assume data includes fields for price and cost
-            const profitPotential = (data.current_price - data.cost) / data.cost;
-
-            if (profitPotential >= targetProfit) {
-                alert('Alert: Target profit of 20% reached! Consider selling.');
-            } else if (profitPotential <= -stopLossThreshold) {
-                alert('Alert: Stop-loss threshold reached. Consider exiting the trade.');
-            }
-        }
-
-        // Fetch options data when the page loads
-        window.onload = fetchOptionsData;
-
-    </script>
-
 </body>
+
 </html>
