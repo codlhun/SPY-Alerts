@@ -3,112 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Body Claims Map</title>
+    <title>VA Assist</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: black; /* Background color set to black */
-            color: white; /* Text color set to white */
+            background-color: black;
+            color: white;
+            text-align: center;
         }
 
         header {
-            background-color: #004080; /* Blue banner color */
+            background-color: #004080;
+            padding: 20px;
             color: white;
-            text-align: center;
-            padding: 20px 0;
         }
 
         h1 {
+            font-size: 3em;
             margin: 0;
-            font-size: 2.5em; /* Header size */
         }
 
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
             padding: 20px;
-            background-color: black; /* Ensure the main section has a black background */
+            margin: 40px auto;
+            max-width: 1200px;
         }
 
-        img {
-            width: 30%; /* Set the image width to 30% of its original size */
-            height: auto; /* Maintain aspect ratio */
-            position: relative;
-        }
-
-        /* Popup Styling */
-        .popup {
-            position: fixed; /* Fixed position */
-            right: 20px; /* Position it on the right */
-            top: 50%; /* Center it vertically */
-            transform: translateY(-50%); /* Adjust to center vertically */
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-            color: white; /* Text color white */
-            border: 1px solid white; /* White border */
-            padding: 10px; /* Padding for text */
-            border-radius: 5px; /* Rounded corners */
-            display: none; /* Initially hidden */
-            z-index: 10; /* Ensure it appears above other elements */
-        }
-
-        footer {
-            background-color: #004080; /* Blue footer color */
+        .button {
+            background-color: #00509E;
             color: white;
+            padding: 15px;
+            text-decoration: none;
             text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+            border-radius: 8px;
+            transition: background-color 0.6s, color 0.6s, font-size 0.6s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            height: 180px;
+        }
+
+        .button img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            object-fit: contain; /* Ensures uniform image scaling */
+        }
+
+        .button:hover {
+            background-color: white;
+            color: #00509E;
+            font-size: 1.4em;
+            box-shadow: 0 0 15px red;
+        }
+
+        @media screen and (max-width: 768px) {
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    <script>
-        function showPopup(event, title, text) {
-            const popup = document.getElementById('popup');
-            popup.innerHTML = `<strong>${title}</strong><br>${text}`;
-            popup.style.display = 'block';
-            popup.style.left = `${event.clientX + 10}px`; // Adjust X position if needed
-            popup.style.top = `${event.clientY}px`; // Set Y position
-        }
-
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
 </head>
-
 <body>
     <header>
-        <h1>Body Claims Map</h1>
+        <h1>VAssist</h1>
+        <h2>Helping veterans file claims with the VA!</h2>
     </header>
 
-    <main>
-        <img src="body.jpg" alt="Anatomical Map of the Human Body" usemap="#bodymap">
-        <div class="popup" id="popup"></div> <!-- Popup div -->
-    </main>
+    <div class="button-grid">
+        <a class="button" href="File a Claim.html">
+            <img src="claim.jpg" alt="File a Claim">
+            File a Claim
+        </a>
+        <a class="button" href="Filing VA Form 21-526EZ.html">
+            <img src="form.jpg" alt="Filing VA Form 21-526EZ">
+            Filing VA Form 21-526EZ
+        </a>
+        <a class="button" href="5 Major Claims Codes Simplified.html">
+            <img src="5.jpg" alt="5 Major Claims Codes">
+            5 Major Claims Codes
+        </a>
+        <a class="button" href="Documents Required.html">
+            <img src="docs.jpg" alt="Documents Required">
+            Documents Required
+        </a>
+        <a class="button" href="Filing Separate Claims for Multiple Disabilities.html">
+            <img src="disability.jpg" alt="Filing Separate Claims">
+            Filing Separate Claims for Multiple Disabilities
+        </a>
+        <a class="button" href="Intent to File Form.html">
+            <img src="email.jpg" alt="Intent to File Form">
+            Intent to File Form
+        </a>
+        <a class="button" href="Learn More About 38CFR Codes.html">
+            <img src="38cfr.jpg" alt="Learn About 38CFR Codes">
+            Learn About 38CFR Codes
+        </a>
+        <a class="button" href="Local Resources.html">
+            <img src="okla.jpg" alt="Local Resources">
+            Local Resources
+        </a>
+        <a class="button" href="BDD.html">
+            <img src="badge.jpg" alt="Benefits Delivery at Discharge">
+            Benefits Delivery at Discharge
+        </a>
+        <a class="button" href="How the 38 CFR Helps With Filing a Claim.html">
+            <img src="medical.jpg" alt="How the 38 CFR Helps">
+            How the 38 CFR Helps
+        </a>
+        <a class="button" href="Using 38CFR to Strengthen Your VA Appeal.html">
+            <img src="appeal.jpg" alt="Using 38CFR to Strengthen Your Appeal">
+            Using 38CFR to Strengthen Your Appeal
+        </a>
+        <a class="button" href="Ways to turn in your disability application.html">
+            <img src="helmet.jpg" alt="Ways to Turn in Your Application">
+            Ways to Turn in Your Application
+        </a>
+        <a class="button" href="Common Disability Claims and Ratings.html">
+            <img src="calc.jpg" alt="Common Disability Claims and Ratings">
+            Common Disability Claims and Ratings
+        </a>
+        <a class="button" href="Adding Secondary Diagnoses to Strengthen Your Appeal.html">
+            <img src="strength.jpg" alt="Adding Secondary Diagnoses">
+            Adding Secondary Diagnoses
+        </a>
+        <a class="button" href="Filing a Claim as a Non-Deployed Veteran.html">
+            <img src="home.jpg" alt="Filing a Claim as a Non-Deployed Veteran">
+            Filing a Claim as a Non-Deployed Veteran
+        </a>
+    </div>
 
-    <map name="bodymap">
-        <area shape="rect" coords="160,30,200,70" alt="PTSD" 
-              onmouseover="showPopup(event, 'PTSD', 'Post-Traumatic Stress Disorder is a mental health condition triggered by traumatic events.')" 
-              onmouseout="hidePopup()">
-        <area shape="rect" coords="50,180,100,220" alt="Hearing Loss" 
-              onmouseover="showPopup(event, 'Hearing Loss', 'Hearing loss is often caused by exposure to loud noises during military service.')" 
-              onmouseout="hidePopup()">
-        <area shape="rect" coords="300,180,350,220" alt="Tinnitus" 
-              onmouseover="showPopup(event, 'Tinnitus', 'Tinnitus is a ringing or buzzing sound in the ears, often linked to hearing loss.')" 
-              onmouseout="hidePopup()">
-        <area shape="rect" coords="160,400,230,450" alt="Limitation of Flexion" 
-              onmouseover="showPopup(event, 'Limitation of Flexion', 'This refers to reduced ability to bend the knee, often due to injuries.')" 
-              onmouseout="hidePopup()">
-        <area shape="rect" coords="150,260,230,300" alt="Lumbosacral Strain" 
-              onmouseover="showPopup(event, 'Lumbosacral Strain', 'Lumbosacral strain involves back issues often resulting from physical demands of service.')" 
-              onmouseout="hidePopup()">
-    </map>
-
-    <footer>
-        &copy; 2024 VA Assistance Resources. All rights reserved.
-    </footer>
 </body>
 </html>
