@@ -18,7 +18,7 @@
             padding: 15px;
             text-align: center;
             color: white;
-            position: relative; /* Added relative positioning */
+            position: relative;
         }
 
         header h1 {
@@ -26,16 +26,18 @@
             font-size: 3em; 
         }
 
-        /* Back button image in the top left corner */
+        /* Back button placed below the banner, with 16:9 ratio */
         .back-button {
             position: absolute;
-            top: 10px;
+            top: 80px; /* Placed just below the banner */
             left: 10px;
         }
 
         .back-button img {
-            width: 50px;
-            height: 50px;
+            width: 150px;  /* Adjust the width */
+            height: auto;  /* Maintain the 16:9 aspect ratio */
+            aspect-ratio: 16/9;
+            cursor: pointer;
         }
 
         nav {
@@ -146,11 +148,13 @@
 <body>
 
     <header>
-        <a href="index.html" class="back-button">
-            <img src="back.jpg" alt="Back to Main Page">
-        </a>
         <h1>VA Assistance for Filing Claims</h1>
     </header>
+
+    <!-- Back button placed below the banner -->
+    <a href="index.html" class="back-button">
+        <img src="back.jpg" alt="Back to Main Page">
+    </a>
 
     <nav>
         <a href="#start-claim">Start Your Claim</a>
