@@ -10,27 +10,22 @@
             margin: 0;
             padding: 0;
             color: black;
-            background-color: #f4f4f4;
         }
         header {
-            background-color: #333;
-            color: white;
+            background-color: rgba(34, 34, 34, 0.8);
             padding: 20px;
             text-align: center;
+            color: white;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
         }
-        .alert-box {
-            background-color: #ffeb3b;
-            padding: 15px;
+        .alert-box, .historical-data {
             margin-bottom: 20px;
-            border-radius: 8px;
         }
         .alert-header {
             font-size: 1.5em;
@@ -40,14 +35,9 @@
             display: block;
             margin-bottom: 5px;
         }
-        .historical-data h2 {
-            margin-top: 20px;
-        }
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: white;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -55,7 +45,7 @@
 
 <header>
     <h1>SPY 0DTE Alert System</h1>
-    <p>High probability 0DTE call and put setups, updated daily.</p>
+    <p>Only the highest probability 0DTE call and put setups delivered daily.</p>
 </header>
 
 <div class="container">
@@ -68,20 +58,17 @@
             <span><strong>Expiration:</strong> Today</span>
             <span><strong>IV Rank:</strong> Loading...</span>
             <span><strong>Volume Spike:</strong> Loading...</span>
-            <span><strong>Breakeven Prices:</strong> Loading...</span>
-            <span><strong>Stop Loss:</strong> Loading...</span>
-            <span><strong>Target Profit:</strong> Loading...</span>
         </div>
     </div>
 
     <!-- Historical Data Section -->
     <div class="historical-data">
         <h2>SPY Historical Volatility and Price Data</h2>
-        <p id="price-moves">Average Daily Price Moves Over Last 5 Days: Loading...</p>
-        <p id="max-pain">Max Pain Level for Expiration: Loading...</p>
-        <p id="iv30">IV30: Loading..., 30-Day Historical Volatility: Loading...</p>
-        <p id="call-volume">Top Call Strikes by Volume: Loading...</p>
-        <p id="put-volume">Top Put Strikes by Volume: Loading...</p>
+        <p>Average Daily Price Moves Over Last 5 Days: +1.2% / -0.9%</p>
+        <p>Max Pain Level for Expiration: 572</p>
+        <p>IV30: 13.9%, 30-Day Historical Volatility: 12.5%</p>
+        <p>Top Call Strikes by Volume: 570 (100,000 OI)</p>
+        <p>Top Put Strikes by Volume: 570 (120,000 OI)</p>
     </div>
 </div>
 
@@ -91,11 +78,13 @@
 
 <script>
     async function fetchOptionsData() {
-        const apiKey = 'WnVoKrmtMzuZccBpDluvyLj6w6RH'; // Tradier API key
-        const endpoint = 'https://api.tradier.com/v1/markets/options/expirations'; // Replace with correct endpoint
-        const symbol = 'SPY'; // Symbol for SPY
+        const apiKey = 'OStxDhMbJ4URE9CEd7jXOoxynL2V'; // Your new API key
+        const endpoint = 'https://api.tradier.com/v1/markets/options/quotes'; // Tradier API endpoint
+        const symbol = 'SPY';
+        const url = `${endpoint}?symbols=${symbol}`;
+
         try {
-            const response = await fetch(`${endpoint}?symbol=${symbol}`, {
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
@@ -104,45 +93,23 @@
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data = await response.json();
-            // Assuming the API response contains relevant data like option type, strike, volume, etc.
+            console.log(data); // Debugging: Check the data structure
 
-            // Update the alert details with the fetched data
+            const option = data.quotes.quote[0]; // Assuming first option data
             const alertDetails = document.getElementById('alert-details');
-            const option = data.options[0]; // Example of grabbing the first option
-
             alertDetails.innerHTML = `
-                <span><strong>Trade Type:</strong> ${option.type || 'N/A'}</span>
+                <span><strong>Trade Type:</strong> ${option.option_type || 'N/A'}</span>
                 <span><strong>Strike:</strong> ${option.strike || 'N/A'}</span>
-                <span><strong>IV Rank:</strong> ${option.iv_rank || 'N/A'}</span>
-                <span><strong>Volume Spike:</strong> ${option.volume_spike || 'N/A'}</span>
+                <span><strong>IV Rank:</strong> ${option.iv || 'N/A'}</span>
+                <span><strong>Volume Spike:</strong> ${option.volume || 'N/A'}</span>
             `;
-
-            // Assume last_price exists in the data for breakeven, stop loss, target profit
-            const entryPrice = option.last_price || 100; // Placeholder
-            const stopLoss = entryPrice * 0.90;
-            const targetProfit = entryPrice * 1.20;
-            const breakeven = entryPrice;
-
-            alertDetails.innerHTML += `
-                <span><strong>Breakeven Prices:</strong> ${breakeven.toFixed(2)}</span>
-                <span><strong>Stop Loss:</strong> ${stopLoss.toFixed(2)}</span>
-                <span><strong>Target Profit:</strong> ${targetProfit.toFixed(2)}</span>
-            `;
-
-            // Example for fetching historical data
-            document.getElementById('price-moves').innerText = 'Average Daily Price Moves Over Last 5 Days: +1.2% / -0.9%';
-            document.getElementById('max-pain').innerText = 'Max Pain Level for Expiration: 572';
-            document.getElementById('iv30').innerText = 'IV30: 13.9%, 30-Day Historical Volatility: 12.5%';
-            document.getElementById('call-volume').innerText = 'Top Call Strikes by Volume: 570 (100,000 OI)';
-            document.getElementById('put-volume').innerText = 'Top Put Strikes by Volume: 570 (120,000 OI)';
-
         } catch (error) {
             console.error('Error fetching options data:', error);
-            alert('Failed to fetch options data. Please try again.');
+            alert('Failed to fetch options data. Check console for details.');
         }
     }
 
