@@ -79,12 +79,11 @@
 <script>
     async function fetchOptionsData() {
         const apiKey = 'OStxDhMbJ4URE9CEd7jXOoxynL2V'; // Your new API key
-        const endpoint = 'https://api.tradier.com/v1/markets/options/quotes'; // Tradier API endpoint
-        const symbol = 'SPY';
-        const url = `${endpoint}?symbols=${symbol}`;
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Public CORS proxy
+        const apiUrl = `${proxyUrl}https://api.tradier.com/v1/markets/options/quotes?symbols=SPY`;
 
         try {
-            const response = await fetch(url, {
+            const response = await fetch(apiUrl, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
